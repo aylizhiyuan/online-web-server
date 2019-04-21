@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1555388915830_3673';
 
   // 添加全局的中间件
-  config.middleware = ['koa2Cors'];
+  config.middleware = ['koa2Cors','errorHandler','checkToken'];
   //checkToken的配置
   config.checkToken = {
     //白名单

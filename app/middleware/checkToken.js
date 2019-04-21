@@ -18,18 +18,18 @@ module.exports = options => {
             tokenContent = await jwt.verify(XToken,ctx.app.config.secret);
           }catch(err){
             if(err.message == 'jwt expired'){
-              ctx.body = {
+              return ctx.body = {
                 code:40001,
                 message:'token过期，请重新登录'
               }
             }else{
-              next();
-              return;
+              await next();
             }
           }
+          await next();
         }
       }else{
-        next();
+        await next();
       }
   }
 }

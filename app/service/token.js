@@ -9,5 +9,8 @@ class TokenService extends Service {
         });
         return token;
     }
+    async saveToken(username,token){
+        await this.app.mysql.update('user',{token:token},{where:{username:username}});
+    }
 }
 module.exports = TokenService

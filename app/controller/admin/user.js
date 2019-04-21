@@ -1,6 +1,7 @@
 'use strict';
 
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
@@ -19,7 +20,9 @@ class UserController extends Controller {
           //检查密码是否正确
           if(res.password === md5(password)){
               //生成token
-              let token = ctx.service.token.createToken(res.user);
+              let token = ctx.service.token.createToken(res.username);
+              //将token存入数据库
+              ctx.service.token.saveToken(res.username,token);
               //最后返回token
               ctx.body = {
                   success:true,
@@ -50,7 +53,23 @@ class UserController extends Controller {
   //获取用户的信息
   async getInfo(){
         let { ctx } = this;
-        console.log(ctx.query.token);
+        let user_id = jwt.decode(ctx.query.token).user_id;
+        let res = await ctx.service.admin.user.getuserbyname(user_id);
+        ctx.body = {
+          ...res
+        }
+  }
+  async delete(){
+    let { ctx } = this;
+    ctx.body = {
+      message:'你有权限删除'
+    }
+  }
+  async update(){
+    let { ctx } = this;
+    ctx.body = {
+      message:'你有权限更新'
+    }
   }
 }
 
