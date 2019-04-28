@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken');
 module.exports = options => {
   return async function checkToken(ctx,next){
-      if(options.whiteList.indexOf(ctx.request.url) == -1){
+      if(options.whiteList.indexOf(ctx.request.path) == -1){
         const XToken = ctx.get('X-Token');
         //如果假设没有拿到token值的话
         if(XToken == ''){

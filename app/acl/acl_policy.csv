@@ -1,0 +1,10 @@
+# admin permissions
+p, admin, /admin/*, (GET)|(POST)|(PUT)|(DELETE)
+
+# editor permissions
+p, editor, /admin/update, (GET)|(POST)
+p, editor, /admin/delete, (GET)|(POST)
+
+# gust permissions
+
+
